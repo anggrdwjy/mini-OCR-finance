@@ -56,6 +56,16 @@ Edit file `.env` dan isi nilai yang wajib, contoh JWT_SECRET dan API key OCR kal
 
 ## Konfigurasi .env
 
+Buat random password dari openssl :
+
+```secure
+root@labstack:~# openssl rand -base64 32
+Cy0TO8SytowkjmDuSH36pel7kCuqs2F5mGZIiEcUBLw=
+
+root@labstack:~# openssl rand -base64 16
+GXQqA56XrqvQwOv99x4HxA==
+```
+
 Buat file `.env` dari contoh ini:
 
 ```env
