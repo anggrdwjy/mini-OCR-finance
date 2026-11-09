@@ -47,7 +47,7 @@ Streamlit hanya tampilan. Semua logika hitung, auth, dan OCR ada di FastAPI.
 ## Cara Install
 
 ```bash
-git clone <url-repo-kamu>
+git clone https://github.com/anggrdwjy/sample-project-AI-finance.git
 cd mini-ocr-finance
 cp .env.example .env
 ```
