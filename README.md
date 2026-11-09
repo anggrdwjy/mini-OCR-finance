@@ -214,15 +214,6 @@ Pastikan `JWT_SECRET` di `.env` tidak berubah. Kalau berubah, token lama jadi ti
 **OCR salah baca total**
 Ini normal untuk struk pudar atau terlipat. Edit manual di halaman Upload sebelum simpan. Hasil koreksi ini yang bikin kategori makin akurat.
 
-## Roadmap
-
-- [ ] Deteksi duplikat struk otomatis
-- [ ] Kategori otomatis belajar dari koreksi user
-- [ ] Import dari mutasi bank dan screenshot transfer
-- [ ] Grafik perbandingan antar bulan
-- [ ] Role admin untuk lihat semua user
-
 ## Lisensi
 
 Bebas dipakai untuk belajar dan project pribadi.
-# sample-project-AI-finance
