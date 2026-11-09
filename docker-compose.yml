@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres:16
+    container_name: ocr_finance_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-ocruser}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-ubah_ini}
+      POSTGRES_DB: ${DB_NAME:-ocr_finance}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-ocruser} -d ${DB_NAME:-ocr_finance}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: ocr_finance_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-ocruser}:${DB_PASSWORD:-ubah_ini}@db:5432/${DB_NAME:-ocr_finance}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRE_HOURS: ${JWT_EXPIRE_HOURS:-24}
+      OCR_PROVIDER: ${OCR_PROVIDER:-api_vision}
+      OCR_API_KEY: ${OCR_API_KEY:-}
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - ./uploads:/app/uploads
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    container_name: ocr_finance_frontend
+    restart: unless-stopped
+    environment:
+      API_URL: http://backend:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
