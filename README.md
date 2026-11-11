@@ -4,6 +4,10 @@ Aplikasi mini untuk mengubah foto struk menjadi data pemasukan dan pengeluaran, 
 
 Upload foto struk -> AI OCR baca datanya -> simpan ke database -> tampil di dashboard dan laporan bulanan.
 
+<p align="left">
+<img src="mini-ocr-finance.png">
+</p>
+
 ## Fitur Utama
 
 - Auth login dengan JWT, register dan login
