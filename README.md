@@ -51,7 +51,7 @@ Streamlit hanya tampilan. Semua logika hitung, auth, dan OCR ada di FastAPI.
 ## Cara Install
 
 ```bash
-git clone https://github.com/anggrdwjy/sample-project-AI-finance.git
+git clone https://github.com/anggrdwjy/mini-ocr-finance.git
 cd mini-ocr-finance
 cp .env.example .env
 ```
@@ -67,9 +67,7 @@ openssl rand -base64 32 (32 karakter random)
 
 Hasil :
 Cy0TO8SytowkjmDuSH36pel7kCuqs2F5mGZIiEcUBLw=
-```
 
-```
 openssl rand -base64 16 (16 karakter random)
 
 Hasil :
@@ -93,6 +91,7 @@ Jangan commit file `.env` ke Git. File ini hanya untuk lokal dan server.
 
 ```bash
 docker compose up --build
+docker compose up --build -d (daemon running)
 ```
 
 Tunggu sampai semua service jalan, lalu buka:
@@ -124,25 +123,6 @@ docker compose down -v
 7. Buka Dashboard untuk lihat ringkasan
 8. Buka Laporan Bulanan, pilih bulan dan tahun, lalu download CSV kalau perlu
 
-## API Endpoints
-
-| Method | Endpoint | Deskripsi |
-|--------|----------|-----------|
-| POST | /auth/register | Buat akun baru |
-| POST | /auth/login | Login dan dapat JWT token |
-| POST | /transactions/upload | Upload struk dan jalankan OCR |
-| GET | /transactions | List transaksi dengan filter |
-| GET | /transactions/{id} | Detail satu transaksi |
-| PUT | /transactions/{id} | Edit transaksi |
-| DELETE | /transactions/{id} | Hapus transaksi |
-| GET | /reports/monthly?year=2026&month=11 | Rekap bulanan |
-| GET | /reports/export?format=csv | Export laporan |
-
-Semua endpoint transaksi dan laporan butuh header:
-
-```
-Authorization: Bearer <JWT_TOKEN>
-```
 
 ## Struktur Folder
 
@@ -190,49 +170,6 @@ Tabel inti:
 - transaction_items: id, transaction_id, nama_item, qty, harga, subtotal
 
 Relasi: satu user punya banyak transaksi, satu transaksi punya banyak item.
-
-## Rekomendasi OS
-
-| OS | Cocok Untuk | Catatan |
-|----|-------------|---------|
-| Ubuntu 22.04 LTS atau 24.04 LTS | Server VPS dan development utama | Rekomendasi utama, Docker paling stabil |
-| Windows 11 + WSL2 Ubuntu | Development di laptop Windows | Jalankan dari dalam WSL2, bukan PowerShell langsung |
-| macOS 14 ke atas | Development di Mac | Cocok untuk Apple Silicon |
-
-Hindari Windows Server untuk project ini karena Docker lebih berat dan banyak tutorial FastAPI dan PostgreSQL berasumsi Linux.
-
-## Rekomendasi Spesifikasi
-
-| Kebutuhan | Minimal | Rekomendasi |
-|------------|---------|-------------|
-| CPU | 2 Core | 4 Core |
-| RAM | 4 GB | 8 GB |
-| Storage | 20 GB SSD | 50 GB SSD |
-| GPU | Tidak perlu | Tidak perlu kalau OCR pakai API |
-| Koneksi | Stabil untuk panggil API OCR | Stabil untuk panggil API OCR |
-
-Kalau OCR pakai API Vision, spek minimal sudah cukup. Kalau OCR lokal pakai Tesseract atau EasyOCR, pakai spek rekomendasi dan simpan model di volume Docker supaya tidak download ulang tiap restart.
-
-## Tips Foto Struk
-
-- Foto lurus, tidak miring dan tidak terlipat
-- Pastikan total dan tanggal terlihat jelas
-- Hindari bayangan dan flash yang menutupi tulisan
-- Kalau struk thermal sudah pudar, foto secepatnya sebelum makin hilang
-
-## Troubleshooting
-
-**Frontend tidak bisa connect ke backend**
-Cek `API_URL` di docker-compose.yml untuk service frontend. Di dalam Docker harus `http://backend:8000`, bukan `localhost`.
-
-**Database tidak jalan**
-Cek port 5432 sudah dipakai aplikasi lain atau belum. Stop dulu PostgreSQL lokal kalau bentrok, atau ganti port di docker-compose.yml.
-
-**Login gagal setelah restart**
-Pastikan `JWT_SECRET` di `.env` tidak berubah. Kalau berubah, token lama jadi tidak valid dan harus login ulang.
-
-**OCR salah baca total**
-Ini normal untuk struk pudar atau terlipat. Edit manual di halaman Upload sebelum simpan. Hasil koreksi ini yang bikin kategori makin akurat.
 
 ## Lisensi
 
