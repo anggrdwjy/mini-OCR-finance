@@ -171,6 +171,11 @@ Tabel inti:
 
 Relasi: satu user punya banyak transaksi, satu transaksi punya banyak item.
 
+#### Support
+
+* [:octocat: Follow me on GitHub](https://github.com/anggrdwjy)
+* [🔔 Subscribe me on Youtube](https://www.youtube.com/@anggarda.wijaya)
+  
 ## Lisensi
 
 Proyek ini dilisensikan di bawah **MIT License** — bebas dipakai, diubah, dan dibagikan, termasuk untuk keperluan komersial, selama menyertakan pemberitahuan hak cipta dan lisensi ini.
